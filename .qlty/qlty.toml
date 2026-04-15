@@ -1,0 +1,57 @@
+# Qlty static analysis configuration for Apache Commons Lang
+# https://docs.qlty.sh/qlty-toml
+
+config_version = "0"
+
+exclude_patterns = [
+  "target/**",
+  "src/site/**",
+  "src/assembly/**",
+  "**/*.min.js",
+  "**/*.min.css",
+]
+
+[smells]
+mode = "comment"
+
+[language.java.smells]
+function_complexity.threshold = 20
+function_parameters.threshold = 6
+
+[[plugin]]
+name = "trufflehog"
+mode = "block"
+
+[[plugin]]
+name = "google-java-format"
+mode = "comment"
+
+[[plugin]]
+name = "pmd"
+mode = "monitor"
+
+[[plugin]]
+name = "radarlint-java"
+mode = "comment"
+
+[[plugin]]
+name = "markdownlint"
+mode = "comment"
+
+[[plugin]]
+name = "yamllint"
+mode = "comment"
+
+[[plugin]]
+name = "actionlint"
+mode = "comment"
+
+[[triage]]
+plugins = ["pmd"]
+rules = ["UselessParentheses"]
+set.mode = "monitor"
+
+[[triage]]
+plugins = ["pmd"]
+rules = ["AvoidInstantiatingObjectsJustToGetClass"]
+set.mode = "monitor"
